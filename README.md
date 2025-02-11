@@ -45,7 +45,7 @@ Les clients peuvent gérer leurs finances grâce aux fonctionnalités suivantes 
 
 📩 Accès à la boîte de messagerie pour recevoir les réponses aux demandes.
 
-
+L'intégration da la bibliothèque externe Gnuplot:
 📊 Statistiques & Graphiques avec Gnuplot
 
 L'application intègre Gnuplot pour générer des visualisations avancées des statistiques bancaires, notamment :
