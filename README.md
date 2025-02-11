@@ -46,6 +46,7 @@ Les clients peuvent gérer leurs finances grâce aux fonctionnalités suivantes 
 📩 Accès à la boîte de messagerie pour recevoir les réponses aux demandes.
 
 L'intégration da la bibliothèque externe Gnuplot:
+
 📊 Statistiques & Graphiques avec Gnuplot
 
 L'application intègre Gnuplot pour générer des visualisations avancées des statistiques bancaires, notamment :
@@ -65,9 +66,7 @@ L'application intègre Gnuplot pour générer des visualisations avancées des s
 
 Ce projet a été réalisé sous la supervision de M. Adelkhalek Bahri.
 
-🔗[ Lien GitHub](https://rachidaamourak.github.io/C-Project-SAR-BANK/)
-
-SAR BANK - GitHub Repository
+SAR BANK - GitHub Repository🔗[ Lien GitHub](https://rachidaamourak.github.io/C-Project-SAR-BANK/)
 
 🚀 Développé avec passion en C ! ❤️
 
