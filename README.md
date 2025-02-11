@@ -65,7 +65,7 @@ L'application intègre Gnuplot pour générer des visualisations avancées des s
 
 Ce projet a été réalisé sous la supervision de M. Adelkhalek Bahri.
 
-🔗 Lien GitHub
+🔗[ Lien GitHub](https://rachidaamourak.github.io/C-Project-SAR-BANK/)
 
 SAR BANK - GitHub Repository
 
