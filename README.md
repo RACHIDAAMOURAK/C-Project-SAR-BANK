@@ -22,6 +22,7 @@ L'administrateur dispose d'un ensemble complet de fonctionnalités lui permettan
 
 📌 Visualisation des statistiques globales pour suivre l'évolution de la banque.
 
+
 🔷 Espace Client
 
 Les clients peuvent gérer leurs finances grâce aux fonctionnalités suivantes :
@@ -44,6 +45,7 @@ Les clients peuvent gérer leurs finances grâce aux fonctionnalités suivantes 
 
 📩 Accès à la boîte de messagerie pour recevoir les réponses aux demandes.
 
+
 📊 Statistiques & Graphiques avec Gnuplot
 
 L'application intègre Gnuplot pour générer des visualisations avancées des statistiques bancaires, notamment :
@@ -51,6 +53,7 @@ L'application intègre Gnuplot pour générer des visualisations avancées des s
 📈 Répartition des types de comptes.
 
 📊 Suivi des transactions mensuelles.
+
 
 🤝 Contributeurs
 
