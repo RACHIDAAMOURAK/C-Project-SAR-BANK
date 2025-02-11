@@ -1,0 +1,6 @@
+ID demande : 1
+RIB : 12345678
+Email : SFAA@GMAIL.CIM
+Téléphone : 0654763782
+Date de demande : 19/12/2024 16:33:54
+-----------------------------

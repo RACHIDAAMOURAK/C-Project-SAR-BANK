@@ -1,0 +1,8 @@
+ID demande : 1
+RIB : 87654321
+Nombre de feuilles par carnet : 100
+Quantite de carnets : 2
+ID demande : 2
+RIB : 87654321
+Nombre de feuilles par carnet : 9
+Quantite de carnets : 9
