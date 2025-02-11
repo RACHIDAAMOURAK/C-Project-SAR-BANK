@@ -2,16 +2,69 @@
 
 📌 Description
 
-SAR BANK est une application bancaire développée en langage C, permettant aux administrateurs de gérer les comptes et aux clients d'effectuer diverses opérations bancaires.
+SAR BANK est une application bancaire développée en langage C, permettant aux administrateurs de gérer les comptes et aux clients d'effectuer diverses opérations bancaires de manière efficace et intuitive.
 
 🔑 Fonctionnalités
 
 🔷 Espace Admin
 
-L'administrateur peut effectuer les actions suivantes :1️⃣ Créer un nouveau compte2️⃣ Modifier un compte existant3️⃣ Supprimer un compte4️⃣ Afficher les informations d'un compte spécifique5️⃣ Afficher les informations de tous les comptes6️⃣ Ajouter un administrateur7️⃣ Gérer les demandes des clients8️⃣ Consulter les statistiques des clients 📊9️⃣ Consulter les statistiques globales 📈0️⃣ Revenir au menu principal
+L'administrateur dispose d'un ensemble complet de fonctionnalités lui permettant de gérer le système bancaire :
+
+📌 Création, modification et suppression des comptes clients.
+
+📌 Consultation des informations d'un compte spécifique ou de l'ensemble des comptes.
+
+📌 Ajout de nouveaux administrateurs pour la gestion du système.
+
+📌 Gestion des demandes clients pour un service rapide et efficace.
+
+📌 Accès aux statistiques des clients pour une meilleure analyse des opérations.
+
+📌 Visualisation des statistiques globales pour suivre l'évolution de la banque.
 
 🔷 Espace Client
 
-Le client peut effectuer les opérations suivantes :1️⃣ Afficher ses informations2️⃣ Effectuer un dépôt 💰3️⃣ Effectuer un retrait 💸4️⃣ Effectuer un virement 🔄5️⃣ Payer une facture 📄6️⃣ Payer la vignette 🚗7️⃣ Faire une demande ✉️8️⃣ Effectuer une recharge téléphonique 📱9️⃣ Consulter l'historique de ses transactions 📜🔟 Consulter sa boîte de messagerie 📩0️⃣ Revenir au menu principal
+Les clients peuvent gérer leurs finances grâce aux fonctionnalités suivantes :
 
+💼 Affichage des informations personnelles.
+
+💰 Dépôt et retrait d'argent en toute sécurité.
+
+🔄 Virement bancaire rapide et fiable.
+
+📄 Paiement des factures sans tracas.
+
+🚗 Règlement de la vignette automobile.
+
+✉️ Soumission de demandes et suivi en temps réel.
+
+📱 Recharge de crédit téléphonique directement depuis l'application.
+
+📜 Consultation de l'historique des transactions pour un suivi optimal.
+
+📩 Accès à la boîte de messagerie pour recevoir les réponses aux demandes.
+
+📊 Statistiques & Graphiques avec Gnuplot
+
+L'application intègre Gnuplot pour générer des visualisations avancées des statistiques bancaires, notamment :
+
+📈 Répartition des types de comptes.
+
+📊 Suivi des transactions mensuelles.
+
+🤝 Contributeurs
+
+👩‍💻 Rachida Amourak
+
+👩‍💻 Aya Bouibauan
+
+👩‍💻 Safae Bifkioun
+
+Ce projet a été réalisé sous la supervision de M. Adelkhalek Bahri.
+
+🔗 Lien GitHub
+
+SAR BANK - GitHub Repository
+
+🚀 Développé avec passion en C ! ❤️
 
