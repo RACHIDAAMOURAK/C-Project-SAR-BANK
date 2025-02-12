@@ -70,3 +70,6 @@ SAR BANK - GitHub Repository🔗[ Lien GitHub](https://rachidaamourak.github.io/
 
 🚀 Développé avec passion en C ! ❤️
 
+essayer de visiter l'espace administrateur en saisissant RACHIDA pour non d'utilisateur et 4444 pour mot de passe
+et l'espace client en saisissant 12345678  pour le RIB et 0000 pour mot de passe
+
