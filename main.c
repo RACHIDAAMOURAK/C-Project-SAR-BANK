@@ -12,8 +12,8 @@
 #else
 #include <sys/ioctl.h>
 #endif
-#include <stdarg.h> // Pour va_list et fonctions associées
-// Définitions des couleurs
+#include <stdarg.h> // Pour va_list et fonctions associÃ©es
+// DÃ©finitions des couleurs
 #define RESET   "\033[0m"
 #define BLUE    "\033[34m"
 #define GREEN   "\033[32m"
@@ -130,19 +130,19 @@ void read_password(char *password) { // fonction pour masquer  le mot de passe
     char ch;
 
     while (1) {
-        ch = getch();  // Lit un caractère sans l'afficher
+        ch = getch();  // Lit un caractÃ¨re sans l'afficher
 
-        if (ch == 13) {  // Si la touche Entrée (caractère 13) est pressée
-            password[i] = '\0';  // Termine la chaîne de caractères
+        if (ch == 13) {  // Si la touche EntrÃ©e (caractÃ¨re 13) est pressÃ©e
+            password[i] = '\0';  // Termine la chaÃ®ne de caractÃ¨res
             break;
-        } else if (ch == 8) {  // Si la touche Backspace (caractère 8) est pressée
+        } else if (ch == 8) {  // Si la touche Backspace (caractÃ¨re 8) est pressÃ©e
             if (i > 0) {
                 i--;
-                printf("\b \b");  // Efface l'étoile
+                printf("\b \b");  // Efface l'Ã©toile
             }
         } else {
             password[i++] = ch;
-            printf("*");  // Affiche une étoile
+            printf("*");  // Affiche une Ã©toile
         }
     }
     printf("\n");
@@ -274,11 +274,11 @@ void effectuerDepot(char rib_entre[25], float montant) {
     while (fgets(ligne, sizeof(ligne), f)) {
         char rib_lu[25];
 
-        // Vérifier si la ligne contient un RIB
+        // VÃ©rifier si la ligne contient un RIB
         if (sscanf(ligne, "RIB : %s", rib_lu) == 1) {
             fprintf(temp, "%s", ligne); // Copier la ligne du RIB dans le fichier temporaire
             if (strcmp(rib_lu, rib_entre) == 0) {
-                // Compte trouvé, sauter les lignes jusqu'au solde
+                // Compte trouvÃ©, sauter les lignes jusqu'au solde
                 int i;
                 for (i = 0; i < 9; i++) { // Ajuster le nombre selon la structure du fichier
                     fgets(ligne, sizeof(ligne), f);
@@ -291,15 +291,15 @@ void effectuerDepot(char rib_entre[25], float montant) {
                     if (sscanf(ligne, "Solde initial : %f", &solde) == 1) {
                         solde += montant; // Ajouter le montant au solde
                         compte_trouve = true;
-                        fprintf(temp, "Solde initial : %.2f\n", solde); // Écrire le nouveau solde
+                        fprintf(temp, "Solde initial : %.2f\n", solde); // Ã‰crire le nouveau solde
                     } else {
-                        // Si ce n'est pas la ligne du solde, on l'écrit normalement
+                        // Si ce n'est pas la ligne du solde, on l'Ã©crit normalement
                         fprintf(temp, "%s", ligne);
                     }
                 }
             }
         } else {
-            // Écrire les autres lignes dans le fichier temporaire normalement
+            // Ã‰crire les autres lignes dans le fichier temporaire normalement
             fprintf(temp, "%s", ligne);
         }
     }
@@ -313,19 +313,19 @@ void effectuerDepot(char rib_entre[25], float montant) {
         rename("temp_client.txt", Clientfile); // Renommer le fichier temporaire
         printGreenOnWhite("\t\t\t\tDepot effectue avec succes. Nouveau solde mis a jour.\n");
 
-        // Enregistrer l'opération dans le fichier historique
+        // Enregistrer l'opÃ©ration dans le fichier historique
         FILE *historique = fopen(historique_clientfile, "a");
         if (historique != NULL) {
-            // Récupérer la date et l'heure actuelles
+            // RÃ©cupÃ©rer la date et l'heure actuelles
             time_t t = time(NULL);
             struct tm tm = *localtime(&t);
 
-            // Écrire les informations dans l'historique
+            // Ã‰crire les informations dans l'historique
             fprintf(historique, "RIB : %s\n", rib_entre); // Ligne 1 : RIB
             fprintf(historique, "Date : %02d/%02d/%04d %02d:%02d:%02d\n",
                     tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900,
                     tm.tm_hour, tm.tm_min, tm.tm_sec); // Ligne 2 : Date
-            fprintf(historique, "Vous avez effectue un depot de : %.2f DH\n\n", montant); // Ligne 3 : Message personnalisé
+            fprintf(historique, "Vous avez effectue un depot de : %.2f DH\n\n", montant); // Ligne 3 : Message personnalisÃ©
 
             fclose(historique);
         } else {
@@ -333,7 +333,7 @@ void effectuerDepot(char rib_entre[25], float montant) {
         }
     } else {
         printRedOnWhite("\t\t\t\t Compte introuvable. Depot annule.\n");
-        remove("temp_client.txt"); // Supprimer le fichier temporaire inutilisé
+        remove("temp_client.txt"); // Supprimer le fichier temporaire inutilisÃ©
     }
 }
 
@@ -358,11 +358,11 @@ void effectuerRetrait(char rib_entre[25], float montant) {
     while (fgets(ligne, sizeof(ligne), f)) {
         char rib_lu[25];
 
-        // Vérifier si la ligne contient un RIB
+        // VÃ©rifier si la ligne contient un RIB
         if (sscanf(ligne, "RIB : %s", rib_lu) == 1) {
             fprintf(temp, "%s", ligne); // Copier la ligne du RIB dans le fichier temporaire
             if (strcmp(rib_lu, rib_entre) == 0) {
-                // Compte trouvé, sauter les lignes jusqu'au solde
+                // Compte trouvÃ©, sauter les lignes jusqu'au solde
                 int i;
                 for (i = 0; i < 9; i++) { // Ajuster le nombre selon la structure du fichier
                     fgets(ligne, sizeof(ligne), f);
@@ -378,7 +378,7 @@ void effectuerRetrait(char rib_entre[25], float montant) {
                             solde -= montant; // Effectuer le retrait
                             solde_suffisant = true;
                             compte_trouve = true;
-                            fprintf(temp, "Solde initial : %.2f\n", solde); // Écrire le nouveau solde
+                            fprintf(temp, "Solde initial : %.2f\n", solde); // Ã‰crire le nouveau solde
                         } else {
                             // Si le solde est insuffisant
                             printRedOnWhite("\t\t\t\t Solde insuffisant pour effectuer le retrait.\n");
@@ -386,13 +386,13 @@ void effectuerRetrait(char rib_entre[25], float montant) {
                             fprintf(temp, "%s", ligne); // Conserver la ligne de solde initial
                         }
                     } else {
-                        // Si ce n'est pas la ligne du solde, on l'écrit normalement
+                        // Si ce n'est pas la ligne du solde, on l'Ã©crit normalement
                         fprintf(temp, "%s", ligne);
                     }
                 }
             }
         } else {
-            // Écrire les autres lignes dans le fichier temporaire normalement
+            // Ã‰crire les autres lignes dans le fichier temporaire normalement
             fprintf(temp, "%s", ligne);
         }
     }
@@ -405,14 +405,14 @@ void effectuerRetrait(char rib_entre[25], float montant) {
         remove(Clientfile); // Supprimer l'ancien fichier
         rename("temp_client.txt", Clientfile); // Renommer le fichier temporaire
         printGreenOnWhite("\t\t\t\t\t Retrait effectue avec succes. Nouveau solde mis a jour.\n");
-        // Enregistrer l'opération dans le fichier historique
+        // Enregistrer l'opÃ©ration dans le fichier historique
         FILE *historique = fopen(historique_clientfile, "a");
         if (historique != NULL) {
-            // Récupérer la date et l'heure actuelles
+            // RÃ©cupÃ©rer la date et l'heure actuelles
             time_t t = time(NULL);
             struct tm tm = *localtime(&t);
 
-            // Écrire les informations dans l'historique
+            // Ã‰crire les informations dans l'historique
             fprintf(historique, "RIB : %s\n", rib_entre);
             fprintf(historique, "Date : %02d/%02d/%04d %02d:%02d:%02d\n",
                     tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900,
@@ -426,11 +426,11 @@ void effectuerRetrait(char rib_entre[25], float montant) {
 
     } else if (!compte_trouve) {
         printRedOnWhite("\t\t\t\t\tCompte introuvable. Retrait annule.\n");
-        remove("temp_client.txt"); // Supprimer le fichier temporaire inutilisé
+        remove("temp_client.txt"); // Supprimer le fichier temporaire inutilisÃ©
     }else if (compte_trouve && !solde_suffisant){
 
      printRedOnWhite("\t\t\t\t\t Retrait annule.\n");
-        remove("temp_client.txt"); // Supprimer le fichier temporaire inutilisé
+        remove("temp_client.txt"); // Supprimer le fichier temporaire inutilisÃ©
     }
 }
 
@@ -456,12 +456,12 @@ void effectuerVirement(char rib_entre[25], char rib_destination[25], float monta
     while (fgets(ligne, sizeof(ligne), f)) {
         char rib_lu[25];
 
-        // Vérifier si la ligne contient un RIB
+        // VÃ©rifier si la ligne contient un RIB
         if (sscanf(ligne, "RIB : %s", rib_lu) == 1) {
             fprintf(temp, "%s", ligne); // Copier la ligne du RIB dans le fichier temporaire
 
             if (strcmp(rib_lu, rib_entre) == 0) {
-                // Compte émetteur trouvé, sauter les lignes jusqu'au solde
+                // Compte Ã©metteur trouvÃ©, sauter les lignes jusqu'au solde
                 compte_emetteur_trouve = true;
                 int i;
                 for (i = 0; i < 9; i++) {
@@ -481,7 +481,7 @@ void effectuerVirement(char rib_entre[25], char rib_destination[25], float monta
                     }
                 }
             } else if (strcmp(rib_lu, rib_destination) == 0) {
-                // Compte destinataire trouvé, sauter les lignes jusqu'au solde
+                // Compte destinataire trouvÃ©, sauter les lignes jusqu'au solde
                 compte_destinataire_trouve = true;
                 int i;
                 for (i = 0; i < 9; i++) {
@@ -514,19 +514,19 @@ void effectuerVirement(char rib_entre[25], char rib_destination[25], float monta
         remove(Clientfile);
         rename("temp_client.txt", Clientfile);
         printGreenOnWhite("\t\t\t\t\t Virement effectue avec succes. Solde mis a jour.\n");
-        // Enregistrer l'opération dans le fichier historique
+        // Enregistrer l'opÃ©ration dans le fichier historique
         FILE *historique = fopen(historique_clientfile, "a");
         if (historique != NULL) {
-            // Récupérer la date et l'heure actuelles
+            // RÃ©cupÃ©rer la date et l'heure actuelles
             time_t t = time(NULL);
             struct tm tm = *localtime(&t);
 
-            // Écrire les informations dans l'historique
+            // Ã‰crire les informations dans l'historique
             fprintf(historique, "RIB : %s\n", rib_entre); // Ligne 1 : RIB
             fprintf(historique, "Date : %02d/%02d/%04d %02d:%02d:%02d\n",
                     tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900,
                     tm.tm_hour, tm.tm_min, tm.tm_sec); // Ligne 2 : Date
-            fprintf(historique, "Vous avez effectue un virement de : %.2f DH au compte %s\n\n", montant,rib_destination); // Ligne 3 : Message personnalisé
+            fprintf(historique, "Vous avez effectue un virement de : %.2f DH au compte %s\n\n", montant,rib_destination); // Ligne 3 : Message personnalisÃ©
 
             fclose(historique);
         } else {
@@ -543,7 +543,7 @@ void effectuerVirement(char rib_entre[25], char rib_destination[25], float monta
         if (compte_emetteur_trouve && !solde_suffisant) {
            printRedOnWhite("\t\t\t\t Solde insuffisant pour effectuer le virement.\n");
         }
-        remove("temp_client.txt"); // Supprimer le fichier temporaire inutilisé
+        remove("temp_client.txt"); // Supprimer le fichier temporaire inutilisÃ©
     }
 }
 void payerFacture(char rib_entre[25], float montant) {
@@ -567,7 +567,7 @@ void payerFacture(char rib_entre[25], float montant) {
     while (fgets(ligne, sizeof(ligne), f)) {
         char rib_lu[25];
 
-        // Vérifier si la ligne contient un RIB
+        // VÃ©rifier si la ligne contient un RIB
         if (sscanf(ligne, "RIB : %s", rib_lu) == 1) {
             fprintf(temp, "%s", ligne); // Copier la ligne du RIB
 
@@ -608,14 +608,14 @@ void payerFacture(char rib_entre[25], float montant) {
         remove(Clientfile);
         rename("temp_client.txt", Clientfile);
         printGreenOnWhite("\t\t\t\tPaiement effectue avec succes. Solde mis a jour.\n");
-        // Écrire les informations dans l'historique
+        // Ã‰crire les informations dans l'historique
         FILE *historique = fopen(historique_clientfile, "a");
         if (historique != NULL) {
-            // Récupérer la date et l'heure actuelles
+            // RÃ©cupÃ©rer la date et l'heure actuelles
             time_t t = time(NULL);
             struct tm tm = *localtime(&t);
 
-            // Écrire les informations dans l'historique
+            // Ã‰crire les informations dans l'historique
             fprintf(historique, "RIB : %s\n", rib_entre); // Ligne 1 : RIB
             fprintf(historique, "Date : %02d/%02d/%04d %02d:%02d:%02d\n",
                     tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900,
@@ -647,7 +647,7 @@ void effectuerRecharge(char rib_entre[25], float montant,char numero_telephone[1
 
     FILE *temp = fopen("temp_client.txt", "w");
     if (temp == NULL) {
-        printf("Erreur : Impossible de créer le fichier temporaire.\n");
+        printf("Erreur : Impossible de crÃ©er le fichier temporaire.\n");
         fclose(f);
         return;
     }
@@ -659,12 +659,12 @@ void effectuerRecharge(char rib_entre[25], float montant,char numero_telephone[1
     while (fgets(ligne, sizeof(ligne), f)) {
         char rib_lu[25];
 
-        // Vérifier si la ligne contient un RIB
+        // VÃ©rifier si la ligne contient un RIB
         if (sscanf(ligne, "RIB : %s", rib_lu) == 1) {
             fprintf(temp, "%s", ligne); // Copier la ligne du RIB dans le fichier temporaire
 
             if (strcmp(rib_lu, rib_entre) == 0) {
-                // Compte trouvé, sauter les lignes jusqu'au solde
+                // Compte trouvÃ©, sauter les lignes jusqu'au solde
                 compte_trouve = true;
                 int i;
                 for (i = 0; i < 9; i++) {
@@ -701,11 +701,11 @@ void effectuerRecharge(char rib_entre[25], float montant,char numero_telephone[1
 
          FILE *historique = fopen(historique_clientfile, "a");
         if (historique != NULL) {
-            // Récupérer la date et l'heure actuelles
+            // RÃ©cupÃ©rer la date et l'heure actuelles
             time_t t = time(NULL);
             struct tm tm = *localtime(&t);
 
-            // Écrire les informations dans l'historique
+            // Ã‰crire les informations dans l'historique
             fprintf(historique, "RIB : %s\n", rib_entre); // Ligne 1 : RIB
             fprintf(historique, "Date : %02d/%02d/%04d %02d:%02d:%02d\n",
                     tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900,
@@ -724,7 +724,7 @@ void effectuerRecharge(char rib_entre[25], float montant,char numero_telephone[1
         if (compte_trouve && !solde_suffisant) {
             printRedOnWhite("\t\t\t\tSolde insuffisant pour effectuer la recharge.\n");
         }
-        remove("temp_client.txt"); // Supprimer le fichier temporaire inutilisé
+        remove("temp_client.txt"); // Supprimer le fichier temporaire inutilisÃ©
     }
 }
 
@@ -749,12 +749,12 @@ void payerVignette(char rib_entre[25], float montant) {
     while (fgets(ligne, sizeof(ligne), f)) {
         char rib_lu[25];
 
-        // Vérifier si la ligne contient un RIB
+        // VÃ©rifier si la ligne contient un RIB
         if (sscanf(ligne, "RIB : %s", rib_lu) == 1) {
             fprintf(temp, "%s", ligne); // Copier la ligne du RIB dans le fichier temporaire
 
             if (strcmp(rib_lu, rib_entre) == 0) {
-                // Compte trouvé
+                // Compte trouvÃ©
                 compte_trouve = true;
                 int i;
                 for (i = 0; i < 9; i++) {
@@ -792,11 +792,11 @@ void payerVignette(char rib_entre[25], float montant) {
 
         FILE *historique = fopen(historique_clientfile, "a");
         if (historique != NULL) {
-            // Récupérer la date et l'heure actuelles
+            // RÃ©cupÃ©rer la date et l'heure actuelles
             time_t t = time(NULL);
             struct tm tm = *localtime(&t);
 
-            // Écrire les informations dans l'historique
+            // Ã‰crire les informations dans l'historique
             fprintf(historique, "RIB : %s\n", rib_entre); // Ligne 1 : RIB
             fprintf(historique, "Date : %02d/%02d/%04d %02d:%02d:%02d\n",
                     tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900,
@@ -815,7 +815,7 @@ void payerVignette(char rib_entre[25], float montant) {
         if (compte_trouve && !solde_suffisant) {
             printRedOnWhite("\t\t\t\t Solde insuffisant pour effectuer le paiement.\n");
         }
-        remove("temp_client.txt"); // Supprimer le fichier temporaire inutilisé
+        remove("temp_client.txt"); // Supprimer le fichier temporaire inutilisÃ©
     }
 }
 
@@ -865,7 +865,7 @@ void remplirDemande_creation() {
     printf("\t\t\t\t\t ");
 	 scanf("%s",demande.Client.password);
 
-    demande.valide = false; // La demande n'est pas encore validée
+    demande.valide = false; // La demande n'est pas encore validÃ©e
 
     // Ouverture du fichier pour ajouter la demande
     FILE *file = fopen(demande_creationfile, "a");
@@ -881,7 +881,7 @@ void remplirDemande_creation() {
                 demande.Client.date_naissance.mois,
                 demande.Client.date_naissance.annee );
         fprintf(file, "Mot de passe : %s\n", demande.Client.password);
-           // Récupérer la date et l'heure actuelles
+           // RÃ©cupÃ©rer la date et l'heure actuelles
             time_t t = time(NULL);
             struct tm tm = *localtime(&t);
         fprintf(file, "Date de demande : %02d/%02d/%04d %02d:%02d:%02d\n",
@@ -938,10 +938,10 @@ void remplirDemande_suppression(char rib_entre[25]) {
         fprintf(file, "ID demande : %d\n", demande.id_demande);
         fprintf(file, "RIB : %s\n", c.RIB);
         fprintf(file, "Nom : %s\n", demande.Client.nom);
-        fprintf(file, "Prénom : %s\n", demande.Client.prenom);
+        fprintf(file, "PrÃ©nom : %s\n", demande.Client.prenom);
         fprintf(file, "CIN : %s\n", demande.Client.CIN);
         fprintf(file, "Type de compte : %s\n", demande.Client.type_Compte);
-        // Récupérer la date et l'heure actuelles
+        // RÃ©cupÃ©rer la date et l'heure actuelles
             time_t t = time(NULL);
             struct tm tm = *localtime(&t);
         fprintf(file, "Date de demande : %02d/%02d/%04d %02d:%02d:%02d\n",
@@ -952,7 +952,7 @@ void remplirDemande_suppression(char rib_entre[25]) {
         printGreenOnWhite("\t\t\t\tDemande de suppression enregistree avec succes !\n");
         Sleep(3000);//Attendre pour que le message apparait et soit lu par le client
         clearConsole();
-        // Écrire les informations dans l'historique
+        // Ã‰crire les informations dans l'historique
         FILE *historique = fopen(historique_clientfile, "a");
         if (historique != NULL) {
             fprintf(historique, "RIB : %s\n", rib_entre); // Ligne 1 : RIB
@@ -1002,8 +1002,8 @@ void remplirDemande_recuperation() {
         fprintf(file, "ID demande : %d\n", demande.id_demande);
         fprintf(file, "RIB : %s\n", c.RIB);
         fprintf(file, "Email : %s\n", demande.Client.email);
-        fprintf(file, "Téléphone : %s\n", demande.Client.tele);
-        // Récupérer la date et l'heure actuelles
+        fprintf(file, "TÃ©lÃ©phone : %s\n", demande.Client.tele);
+        // RÃ©cupÃ©rer la date et l'heure actuelles
             time_t t = time(NULL);
             struct tm tm = *localtime(&t);
         fprintf(file, "Date de demande : %02d/%02d/%04d %02d:%02d:%02d\n",
@@ -1059,7 +1059,7 @@ void remplirDemande_modification(char rib_entre[25]) {
     if (file != NULL) {
         fprintf(file, "ID demande : %d\n", demande.id_demande);
         fprintf(file, "RIB : %s\n", c.RIB);
-    // Récupérer la date et l'heure actuelles
+    // RÃ©cupÃ©rer la date et l'heure actuelles
             time_t t = time(NULL);
             struct tm tm = *localtime(&t);
 
@@ -1073,10 +1073,10 @@ void remplirDemande_modification(char rib_entre[25]) {
        printGreenOnWhite("\t\t\t\t\t Demande de modification enregistree avec succes! ");
        Sleep(5000);
        clearConsole();
-        // Écrire les informations dans l'historique
+        // Ã‰crire les informations dans l'historique
         FILE *historique = fopen(historique_clientfile, "a");
         if (historique != NULL) {
-            // Écrire les informations dans l'historique
+            // Ã‰crire les informations dans l'historique
             fprintf(historique, "RIB : %s\n", rib_entre); // Ligne 1 : RIB
             fprintf(historique, "Date : %02d/%02d/%04d %02d:%02d:%02d\n",
                     tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900,
@@ -1110,7 +1110,7 @@ void remplirDemande_carnet(char rib_entre[25]) {
     }
 
     demande.id_demande = dernier_demande + 1;
-    // Saisie des informations nécessaires
+    // Saisie des informations nÃ©cessaires
     printf("\t\t\t\t\t Entrez votre RIB : ");
     scanf("%s",c.RIB);  // Stockage du RIB dans Client.RIB
 
@@ -1127,7 +1127,7 @@ void remplirDemande_carnet(char rib_entre[25]) {
     if (file != NULL) {
         fprintf(file, "ID demande : %d\n", demande.id_demande);
         fprintf(file, "RIB : %s\n",c.RIB);
-         // Récupérer la date et l'heure actuelles
+         // RÃ©cupÃ©rer la date et l'heure actuelles
             time_t t = time(NULL);
             struct tm tm = *localtime(&t);
         fprintf(file, "Date de demande : %02d/%02d/%04d %02d:%02d:%02d\n",
@@ -1140,10 +1140,10 @@ void remplirDemande_carnet(char rib_entre[25]) {
         printGreenOnWhite("\t\t\t\tDemande de carnet de cheques enregistree avec succes !\n");
         Sleep(3000);//Attendre pour que le message apparait et soit lu par le client
         clearConsole();
-        // Écrire les informations dans l'historique
+        // Ã‰crire les informations dans l'historique
         FILE *historique = fopen(historique_clientfile, "a");
         if (historique != NULL) {
-            // Écrire les informations dans l'historique
+            // Ã‰crire les informations dans l'historique
             fprintf(historique, "RIB : %s\n", rib_entre); // Ligne 1 : RIB
             fprintf(historique, "Date : %02d/%02d/%04d %02d:%02d:%02d\n",
                     tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900,
@@ -1191,7 +1191,7 @@ void Menu_princ(char rib_entre[25]){
                 afficherInformations(rib_entre);
 afficherCentre("appuyer sur entree pour revenir au menu:\n");
                  getchar();//consomme l'entree \n apres  scanf("%d",&choix);
-                 getchar();//Attend une entrée utilisateur
+                 getchar();//Attend une entrÃ©e utilisateur
                  clearConsole();
                 break;
             case 2:{
@@ -1355,7 +1355,7 @@ afficherCentre("appuyer sur entree pour revenir au menu:\n");
                         scanf("%s", email);
                        printf("\t\t\t\t\t Entrez votre numero de telephone : ");
                        scanf("%s", numero_telephone);
-                // Année de vignette
+                // AnnÃ©e de vignette
                        printf("\t\t\t\t\t Entrez l'annee de la vignette : ");
                       scanf("%d", &annee_vignette);
                    // Montant
@@ -1407,7 +1407,7 @@ afficherCentre("appuyer sur entree pour revenir au menu:\n");
                          int typerecharge;
                          float montant;
 
-                        // Afficher la liste des opérateurs
+                        // Afficher la liste des opÃ©rateurs
             afficherCentre("\n\n\n\n");
             afficherCentre("********************************************************\n");
             afficherCentre("*                                                      *\n");
@@ -1421,13 +1421,13 @@ afficherCentre("appuyer sur entree pour revenir au menu:\n");
                          scanf("%d", &operateur);
                          clearConsole();
 
-                        // Valider le choix de l'opérateur
+                        // Valider le choix de l'opÃ©rateur
                         if (operateur < 1 || operateur > 3) {
                          printRedOnWhite("\t\t\t\t Erreur : choix d'operateur invalide ! Veuillez reessayer.\n");
                          break;
                            }
 
-                       // Demander le numéro de téléphone
+                       // Demander le numÃ©ro de tÃ©lÃ©phone
                          printf("\t\t\t\t\t Entrez le numero de telephone : ");
                          scanf("%s", numero_telephone);
 
@@ -1452,7 +1452,7 @@ afficherCentre("appuyer sur entree pour revenir au menu:\n");
                    afficherCentre("*           4. Pass National *22                *\n");
                    afficherCentre("*           5. Pass Internet *3                 *\n");
                    afficherCentre("*           6. Pass Tout en un *5               *\n");
-                   afficherCentre("*           7. Pass Réseaux Sociaux *6          *\n");
+                   afficherCentre("*           7. Pass RÃ©seaux Sociaux *6          *\n");
                    afficherCentre("*           8. Pass Premium *9                  *\n");
                    afficherCentre("*           9. Pass Gaming *88                  *\n");
                    afficherCentre("*-----------------------------------------------*\n");
@@ -1482,7 +1482,7 @@ afficherCentre("appuyer sur entree pour revenir au menu:\n");
 			 	 afficherCentre("appuyer sur entree pour revenir au menu:\n");
 			 	 changerCouleur(BLACK);
                  getchar();//consomme l'entree \n apres  scanf("%d",&choix);
-                 getchar();//Attend une entrée utilisateur
+                 getchar();//Attend une entrÃ©e utilisateur
                  clearConsole();
 				break;
 			 }
@@ -1493,7 +1493,7 @@ afficherCentre("appuyer sur entree pour revenir au menu:\n");
 			 	 afficherCentre("appuyer sur entree pour revenir au menu:\n");
 			 	 changerCouleur(BLACK);
                  getchar();//consomme l'entree \n apres  scanf("%d",&choix);
-                 getchar();//Attend une entrée utilisateur
+                 getchar();//Attend une entrÃ©e utilisateur
                  clearConsole();
 				break;
 			  }
@@ -1549,7 +1549,7 @@ void login(char RIB[25], char password[20]) {
     if (strcmp(rib_entre, rib_fichier) == 0 && strcmp(motdepass, motdepass_fichier) == 0) {
         compte_trouve = true;
 
-        // Connexion réussie, chercher le nom dans Clientfile
+        // Connexion rÃ©ussie, chercher le nom dans Clientfile
         FILE *f = fopen(Clientfile, "r");
         if (f == NULL) {
             printf("Erreur : Impossible d'ouvrir le fichier %s\n", Clientfile);
@@ -1566,7 +1566,7 @@ void login(char RIB[25], char password[20]) {
             if (sscanf(ligne, "RIB : %s", rib_temp) == 1 && strcmp(rib_temp, rib_entre) == 0) {
                 // Lire le nom du client
                 fgets(ligne, sizeof(ligne), f); // Ignorer la ligne suivante (mot de passe)
-                fgets(ligne, sizeof(ligne), f); // Ignorer la ligne suivante (numéro de compte)
+                fgets(ligne, sizeof(ligne), f); // Ignorer la ligne suivante (numÃ©ro de compte)
                 fgets(ligne, sizeof(ligne), f); // Lire la ligne contenant le nom
                 fgets(ligne, sizeof(ligne), f); // Lire la ligne contenant le nom
                 sscanf(ligne, "Prenom : %s", prenom_client);
@@ -1581,25 +1581,25 @@ void login(char RIB[25], char password[20]) {
                 getchar();
                 clearConsole();
           printGreenOnWhite("\n\n\n\n\t\t\t\t\t BIENVENUE DANS SAR BANQUE !! ");
-            // Enregistrer l'opération dans le fichier historique
+            // Enregistrer l'opÃ©ration dans le fichier historique
         FILE *historique = fopen(historique_clientfile, "a");
         if (historique != NULL) {
-            // Récupérer la date et l'heure actuelles
+            // RÃ©cupÃ©rer la date et l'heure actuelles
             time_t t = time(NULL);
             struct tm tm = *localtime(&t);
 
-            // Écrire les informations dans l'historique
+            // Ã‰crire les informations dans l'historique
             fprintf(historique, "RIB : %s\n", rib_entre); // Ligne 1 : RIB
             fprintf(historique, "Date : %02d/%02d/%04d %02d:%02d:%02d\n",
                     tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900,
                     tm.tm_hour, tm.tm_min, tm.tm_sec); // Ligne 2 : Date
-            fprintf(historique, "Vous vous etes authentifie a votre compte. \n\n"); // Ligne 3 : Message personnalisé
+            fprintf(historique, "Vous vous etes authentifie a votre compte. \n\n"); // Ligne 3 : Message personnalisÃ©
 
             fclose(historique);
         } else {
             printf("Erreur : Impossible d'ouvrir le fichier historique.\n");
         }
-            Sleep(2600); // Attendre pour afficher la connexion réussie
+            Sleep(2600); // Attendre pour afficher la connexion rÃ©ussie
             clearConsole();
             changerCouleur(MAGENTA);
        printf("\n\n\t\t\t\t\t*^*BIENVENUE DANS VOTRE COMPTE, %s !*^*\n", prenom_client);
@@ -1610,7 +1610,7 @@ void login(char RIB[25], char password[20]) {
 
 
         Menu_princ(rib_entre); // Diriger vers le menu principal
-        return; // Quitter la fonction après connexion réussie
+        return; // Quitter la fonction aprÃ¨s connexion rÃ©ussie
     }
   }
         fclose(l);
@@ -1665,7 +1665,7 @@ void envoyerEmail(const char *email, const char *message) {
 
         // Contenu du message
         char data[500];
-        snprintf(data, sizeof(data), "To: %s\r\nSubject: Récupération de mot de passe\r\n\r\n%s\r\n", email, message);
+        snprintf(data, sizeof(data), "To: %s\r\nSubject: RÃ©cupÃ©ration de mot de passe\r\n\r\n%s\r\n", email, message);
         curl_easy_setopt(curl, CURLOPT_READDATA, data);
         curl_easy_setopt(curl, CURLOPT_READFUNCTION, NULL);
         curl_easy_setopt(curl, CURLOPT_UPLOAD, 1L);
@@ -1676,10 +1676,10 @@ void envoyerEmail(const char *email, const char *message) {
         if (res != CURLE_OK) {
             fprintf(stderr, "Erreur lors de l'envoi de l'email : %s\n", curl_easy_strerror(res));
         } else {
-            printf("Email envoyé avec succès.\n");
+            printf("Email envoyÃ© avec succÃ¨s.\n");
         }
 
-        // Libération des ressources
+        // LibÃ©ration des ressources
         curl_slist_free_all(recipients);
         curl_easy_cleanup(curl);
     } else {
@@ -1712,7 +1712,7 @@ void afficherStatistiques(char rib_entre[25]) {
         char rib_historique[25];
         if (sscanf(ligne, "RIB : %s", rib_historique) == 1 && strcmp(rib_historique, rib_entre) == 0) {
             compte_trouve = true;
-            // Lire les détails des transactions
+            // Lire les dÃ©tails des transactions
             while (fgets(ligne, sizeof(ligne), historique)) {
                 if (strstr(ligne, "depot")) {
                     float montant;
@@ -1775,7 +1775,7 @@ void statistiquesComptes() {
         return;
     }
 
-    // Déclaration des variables pour le fichier des clients
+    // DÃ©claration des variables pour le fichier des clients
     int total_comptes = 0;
     float total_solde = 0.0, solde_max = -1.0, solde_min = 1e9;
     char compte_max[25], compte_min[25];
@@ -1808,7 +1808,7 @@ void statistiquesComptes() {
             char type[20];
             sscanf(ligne, "Type de compte : %s", type);
 
-            // Recherche si le type existe déjà
+            // Recherche si le type existe dÃ©jÃ 
             int found = 0;
             for (int i = 0; i < type_count; i++) {
                 if (strcmp(type_comptes[i], type) == 0) {
@@ -1827,7 +1827,7 @@ void statistiquesComptes() {
     }
     fclose(f);
 
-    // Déclaration des variables pour le fichier historique
+    // DÃ©claration des variables pour le fichier historique
     FILE *historique = fopen(historique_clientfile, "r");
     if (historique == NULL) {
         printf("Erreur : Impossible d'ouvrir le fichier historique.\n");
@@ -1883,7 +1883,7 @@ void statistiquesComptes() {
     // Calcul des statistiques
     float solde_moyen = total_comptes > 0 ? total_solde / total_comptes : 0;
 
-    // Création des fichiers pour Gnuplot
+    // CrÃ©ation des fichiers pour Gnuplot
     FILE *file_monthly = fopen("transactions_mensuelles.txt", "w");
     for (int i = 0; i < 12; i++) {
         fprintf(file_monthly, "%d %d\n", i + 1, monthly_totals[i]);
@@ -1927,10 +1927,10 @@ void statistiquesComptes() {
 }
 
 void genererGraphiques() {
-    // Création d'un script Gnuplot
+    // CrÃ©ation d'un script Gnuplot
     FILE *gnuplotScript = fopen("statistiques.plt", "w");
     if (gnuplotScript == NULL) {
-        printf("Erreur : Impossible de créer le fichier Gnuplot.\n");
+        printf("Erreur : Impossible de crÃ©er le fichier Gnuplot.\n");
         return;
     }
 
@@ -1944,9 +1944,9 @@ void genererGraphiques() {
     fprintf(gnuplotScript, "set grid\n");
     fprintf(gnuplotScript, "plot 'transactions_mensuelles.txt' using 1:2 with linespoints title 'Transactions'\n");
 
-    // Script pour le graphique de répartition des types de comptes
+    // Script pour le graphique de rÃ©partition des types de comptes
     fprintf(gnuplotScript, "set output 'types_comptes.png'\n");
-    fprintf(gnuplotScript, "set title 'Répartition des Types de Comptes'\n");
+    fprintf(gnuplotScript, "set title 'RÃ©partition des Types de Comptes'\n");
     fprintf(gnuplotScript, "set xlabel 'Type de Compte'\n");
     fprintf(gnuplotScript, "set ylabel 'Nombre de Comptes'\n");
     fprintf(gnuplotScript, "set style data histogram\n");
@@ -1956,7 +1956,7 @@ void genererGraphiques() {
 
     fclose(gnuplotScript);
 
-    // Appel de Gnuplot pour exécuter le script
+    // Appel de Gnuplot pour exÃ©cuter le script
     printf("Generation des graphiques...\n");
     system("gnuplot statistiques.plt");
     printf("Graphiques generes : transactions_mensuelles.png et types_comptes.png\n");
@@ -1999,7 +1999,7 @@ void creerCompte() {
     infoclient info;
     date d;
 
-    // Lire le dernier numéro de compte
+    // Lire le dernier numÃ©ro de compte
     int dernier_numero = 0;
     FILE *f = fopen(Clientfile, "r");
      FILE *l = fopen(LoginClientfile, "r");
@@ -2007,7 +2007,7 @@ void creerCompte() {
         char ligne[200];
         while (fgets(ligne, sizeof(ligne), f)) {
             if (sscanf(ligne, "Numero de compte : %d", &dernier_numero) == 1) {
-                // Trouver le dernier numéro de compte
+                // Trouver le dernier numÃ©ro de compte
             }
         }
         fclose(f);
@@ -2070,7 +2070,7 @@ void creerCompte() {
     fprintf(l, "%s\n", info.password);
     fclose(l);
     printFormattedGreenOnWhite("\t\t\t\tCompte cree avec succes, numero de compte : %d\n", c.numero_compte);
-    Sleep(4000); // Attendre pour afficher la connexion réussie
+    Sleep(4000); // Attendre pour afficher la connexion rÃ©ussie
     clearConsole();
 }
 // fonction de modification des cpmptes
@@ -2088,7 +2088,7 @@ void modifierCompte() {
 
     FILE *temp = fopen("temp.txt", "w");
     if (temp == NULL) {
-        printf("Erreur : Impossible de créer un fichier temporaire\n");
+        printf("Erreur : Impossible de crÃ©er un fichier temporaire\n");
         fclose(f);
         return;
     }
@@ -2110,7 +2110,7 @@ void modifierCompte() {
         // Si on trouve le RIB du compte, commencer la modification
         if (sscanf(ligne, "RIB : %s", rib_fichier) == 1 && strcmp(rib, rib_fichier) == 0) {
             compte_trouve = true;
-            fprintf(temp, "%s", ligne); // Écrire le RIB actuel
+            fprintf(temp, "%s", ligne); // Ã‰crire le RIB actuel
 
             int choix;
             do {
@@ -2174,7 +2174,7 @@ void modifierCompte() {
             fprintf(temp, "Email : %s\n", new_email);
             modifier_email = false;
         } else {
-            // Copier toutes les autres lignes inchangées
+            // Copier toutes les autres lignes inchangÃ©es
             fprintf(temp, "%s", ligne);
         }
     }
@@ -2182,17 +2182,17 @@ void modifierCompte() {
     fclose(f);
     fclose(temp);
 
-    // Si le compte a été trouvé et modifié, on remplace le fichier original
+    // Si le compte a Ã©tÃ© trouvÃ© et modifiÃ©, on remplace le fichier original
     if (compte_trouve) {
         remove(Clientfile);  // Supprimer l'ancien fichier
         rename("temp.txt", Clientfile);  // Renommer le fichier temporaire en fichier d'origine
     printGreenOnWhite("\t\t\t\t Modifications enregistrees avec succes !\n");
-        Sleep(4000); // Attendre pour afficher la connexion réussie
+        Sleep(4000); // Attendre pour afficher la connexion rÃ©ussie
         clearConsole();
     } else {
-        remove("temp.txt");  // Supprimer le fichier temporaire si le compte n'a pas été trouvé
+        remove("temp.txt");  // Supprimer le fichier temporaire si le compte n'a pas Ã©tÃ© trouvÃ©
       printFormattedRedOnWhite("\t\t\t\t Compte avec le RIB %s non trouve.\n", rib);
-       Sleep(3000); // Attendre pour afficher la connexion réussie
+       Sleep(3000); // Attendre pour afficher la connexion rÃ©ussie
         clearConsole();
     }
 }
@@ -2238,14 +2238,14 @@ void supprimerCompte() {
         return;
     }
 
-    // Réécrire le fichier Clientfile avec renumérotation
+    // RÃ©Ã©crire le fichier Clientfile avec renumÃ©rotation
     FILE *temp = fopen("temp.txt", "w");
     if (temp == NULL) {
         printf("Erreur : Impossible de creer un fichier temporaire\n");
         return;
     }
 
-    int numero_compte = 1; // Recommencer la numérotation
+    int numero_compte = 1; // Recommencer la numÃ©rotation
     int i;
     for ( i = 0; i < nb_lignes; i++) {
         if (strncmp(lignes[i], "Numero de compte : ", 19) == 0) {
@@ -2266,7 +2266,7 @@ void supprimerCompte() {
         clearConsole();
     }
 
-    // Supprimer également le compte dans loginclientfile
+    // Supprimer Ã©galement le compte dans loginclientfile
     FILE *login_file = fopen(LoginClientfile, "r");
     if (login_file == NULL) {
         printf("Erreur : Impossible d'ouvrir le fichier %s\n", LoginClientfile);
@@ -2284,7 +2284,7 @@ void supprimerCompte() {
     while (fgets(login_ligne, sizeof(login_ligne), login_file)) {
         char rib_login[25];
         if (sscanf(login_ligne, "%s", rib_login) == 1 && strcmp(rib_login, rib) == 0) {
-            // Ne pas écrire cette ligne dans le fichier temporaire
+            // Ne pas Ã©crire cette ligne dans le fichier temporaire
             continue;
         }
         fputs(login_ligne, login_temp);
@@ -2429,22 +2429,22 @@ int modifier_client(const char *fichier, const char *rib, const char *champ, con
         // Supprimer le saut de ligne pour faciliter les comparaisons
         copie_ligne[strcspn(copie_ligne, "\n")] = '\0';
 
-        // Vérifier si c'est un RIB
+        // VÃ©rifier si c'est un RIB
         if (strstr(copie_ligne, rib) && strstr(copie_ligne, "RIB")) {
             rib_trouve = 1;
         }
 
-        // Si on est dans le bon bloc et on trouve le champ à modifier
+        // Si on est dans le bon bloc et on trouve le champ Ã  modifier
         if (rib_trouve && strstr(copie_ligne, champ)) {
             // Modifier la valeur
             fprintf(fichier_temp, "%s : %s\n", champ, nouvelle_valeur);
             modification_effectuee = 1;
         } else {
-            // Écrire la ligne telle quelle
+            // Ã‰crire la ligne telle quelle
             fputs(ligne, fichier_temp);
         }
 
-        // Vérifier si on arrive à la fin du bloc (--- ou autre délimiteur)
+        // VÃ©rifier si on arrive Ã  la fin du bloc (--- ou autre dÃ©limiteur)
         if (strstr(copie_ligne, "---")) {
             rib_trouve = 0; // Sortir du bloc
         }
@@ -2489,7 +2489,7 @@ void gererDemandes() {
         getchar();
         clearConsole();
         switch (choix) {
-      case 1: { // Gestion des demandes de création
+      case 1: { // Gestion des demandes de crÃ©ation
         FILE *file = fopen(demande_creationfile, "r");
         if (!file) {
         printf("Erreur : Impossible d'ouvrir le fichier %s\n", demande_creationfile);
@@ -2498,7 +2498,7 @@ void gererDemandes() {
 
         FILE *temp = fopen("temp_creation.txt", "w");
         if (!temp) {
-        printf("Erreur : Impossible de créer un fichier temporaire\n");
+        printf("Erreur : Impossible de crÃ©er un fichier temporaire\n");
         fclose(file);
         return;
         }
@@ -2534,7 +2534,7 @@ void gererDemandes() {
             demande_complete = true;
         }
 
-        // Traiter la demande complète
+        // Traiter la demande complÃ¨te
         if (demande_complete) {
             printf("\t\t\t\t\t Demande ID : %s\n", id);
             printf("\t\t\t\t\t Nom : %s\n\t\t\t\t\t Prenom : %s\n\t\t\t\t\t CIN : %s\n", nom, prenom, cin);
@@ -2596,7 +2596,7 @@ void gererDemandes() {
             } else if (action == 2) {
                 printf("\t\t\t\t\t Demande rejetee.\n");
             } else {
-                // Réécrire la demande ignorée dans le fichier temporaire
+                // RÃ©Ã©crire la demande ignorÃ©e dans le fichier temporaire
                         fprintf(temp, "ID demande : %s\n", id);
                         fprintf(temp, "RIB : %s\n", rib);
                         fprintf(temp, "Mot de passe : %s\n", password);
@@ -2611,7 +2611,7 @@ void gererDemandes() {
                         fprintf(temp, "---------------------------------------------\n");
             }
 
-            // Réinitialiser les variables pour la prochaine demande
+            // RÃ©initialiser les variables pour la prochaine demande
             demande_complete = false;
         }
     }
@@ -2638,7 +2638,7 @@ void gererDemandes() {
 
                 FILE *temp = fopen("temp_suppression.txt", "w");
                 if (!temp) {
-                printf("Erreur : Impossible de créer un fichier temporaire\n");
+                printf("Erreur : Impossible de crÃ©er un fichier temporaire\n");
                 fclose(file);
                 return;
                     }
@@ -2669,16 +2669,16 @@ void gererDemandes() {
                             afficherCentre("Demande rejetee.\n");
                             FILE *boite = fopen(boite_messagefile, "a");
         if (boite != NULL) {
-            // Récupérer la date et l'heure actuelles
+            // RÃ©cupÃ©rer la date et l'heure actuelles
             time_t t = time(NULL);
             struct tm tm = *localtime(&t);
 
-            // Écrire les informations dans l'boite
+            // Ã‰crire les informations dans l'boite
             fprintf(boite, "RIB : %s\n", rib); // Ligne 1 : RIB
             fprintf(boite, "Date : %02d/%02d/%04d %02d:%02d:%02d\n",
                     tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900,
                     tm.tm_hour, tm.tm_min, tm.tm_sec); // Ligne 2 : Date
-            fprintf(boite, "votre demande de suppression a ete rejete\n\n"); // Ligne 3 : Message personnalisé
+            fprintf(boite, "votre demande de suppression a ete rejete\n\n"); // Ligne 3 : Message personnalisÃ©
 
             fclose(boite);
         } else {
@@ -2687,16 +2687,16 @@ void gererDemandes() {
                         } else {
                               FILE *boite = fopen(boite_messagefile, "a");
         if (boite != NULL) {
-            // Récupérer la date et l'heure actuelles
+            // RÃ©cupÃ©rer la date et l'heure actuelles
             time_t t = time(NULL);
             struct tm tm = *localtime(&t);
 
-            // Écrire les informations dans l'boite
+            // Ã‰crire les informations dans l'boite
             fprintf(boite, "RIB : %s\n", rib); // Ligne 1 : RIB
             fprintf(boite, "Date : %02d/%02d/%04d %02d:%02d:%02d\n",
                     tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900,
                     tm.tm_hour, tm.tm_min, tm.tm_sec); // Ligne 2 : Date
-            fprintf(boite, "votre demande de supression est en cours de traitement \n\n"); // Ligne 3 : Message personnalisé
+            fprintf(boite, "votre demande de supression est en cours de traitement \n\n"); // Ligne 3 : Message personnalisÃ©
 
             fclose(boite);
         } else {
@@ -2731,7 +2731,7 @@ void gererDemandes() {
 
                 FILE *temp = fopen("temp_modification.txt", "w");
                 if (!temp) {
-                printf("Erreur : Impossible de créer un fichier temporaire\n");
+                printf("Erreur : Impossible de crÃ©er un fichier temporaire\n");
                 fclose(file);
                 return;
                     }
@@ -2762,16 +2762,16 @@ printf("\n\t\t\t\t\t ID demande : %s\n\t\t\t\t\t RIB : %s\n\t\t\t\t\t Informatio
                             modifier_client(Clientfile, rib,  champ,  nouvelle_valeur);
                               FILE *boite = fopen(boite_messagefile, "a");
         if (boite != NULL) {
-            // Récupérer la date et l'heure actuelles
+            // RÃ©cupÃ©rer la date et l'heure actuelles
             time_t t = time(NULL);
             struct tm tm = *localtime(&t);
 
-            // Écrire les informations dans l'boite
+            // Ã‰crire les informations dans l'boite
                             fprintf(boite, "RIB : %s\n", rib); // Ligne 1 : RIB
             fprintf(boite, "Date : %02d/%02d/%04d %02d:%02d:%02d\n",
                     tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900,
                     tm.tm_hour, tm.tm_min, tm.tm_sec); // Ligne 2 : Date
-            fprintf(boite, "votre demande de modification de votre %s par %s est effectue avec succes\n\n",champ,nouvelle_valeur); // Ligne 3 : Message personnalisé
+            fprintf(boite, "votre demande de modification de votre %s par %s est effectue avec succes\n\n",champ,nouvelle_valeur); // Ligne 3 : Message personnalisÃ©
 
             fclose(boite);
         } else {
@@ -2782,16 +2782,16 @@ printf("\n\t\t\t\t\t ID demande : %s\n\t\t\t\t\t RIB : %s\n\t\t\t\t\t Informatio
                             printf("Demande rejetee.\n");
                               FILE *boite = fopen(boite_messagefile, "a");
         if (boite != NULL) {
-            // Récupérer la date et l'heure actuelles
+            // RÃ©cupÃ©rer la date et l'heure actuelles
             time_t t = time(NULL);
             struct tm tm = *localtime(&t);
 
-            // Écrire les informations dans l'boite
+            // Ã‰crire les informations dans l'boite
                             fprintf(boite, "RIB : %s\n", rib); // Ligne 1 : RIB
             fprintf(boite, "Date : %02d/%02d/%04d %02d:%02d:%02d\n",
                     tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900,
                     tm.tm_hour, tm.tm_min, tm.tm_sec); // Ligne 2 : Date
-            fprintf(boite, "votre demande de modification de votre %s par %s a ete rejete\n\n",champ ,nouvelle_valeur); // Ligne 3 : Message personnalisé
+            fprintf(boite, "votre demande de modification de votre %s par %s a ete rejete\n\n",champ ,nouvelle_valeur); // Ligne 3 : Message personnalisÃ©
 
             fclose(boite);
         } else {
@@ -2800,16 +2800,16 @@ printf("\n\t\t\t\t\t ID demande : %s\n\t\t\t\t\t RIB : %s\n\t\t\t\t\t Informatio
                         } else {
                               FILE *boite = fopen(boite_messagefile, "a");
         if (boite != NULL) {
-            // Récupérer la date et l'heure actuelles
+            // RÃ©cupÃ©rer la date et l'heure actuelles
             time_t t = time(NULL);
             struct tm tm = *localtime(&t);
 
-            // Écrire les informations dans l'boite
+            // Ã‰crire les informations dans l'boite
                             fprintf(boite, "RIB : %s\n", rib); // Ligne 1 : RIB
             fprintf(boite, "Date : %02d/%02d/%04d %02d:%02d:%02d\n",
                     tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900,
                     tm.tm_hour, tm.tm_min, tm.tm_sec); // Ligne 2 : Date
-            fprintf(boite, "votre demande de modification de votre %s par %s est en cours de traitement \n\n",champ,nouvelle_valeur); // Ligne 3 : Message personnalisé
+            fprintf(boite, "votre demande de modification de votre %s par %s est en cours de traitement \n\n",champ,nouvelle_valeur); // Ligne 3 : Message personnalisÃ©
 
             fclose(boite);
         } else {
@@ -2842,7 +2842,7 @@ printf("\n\t\t\t\t\t ID demande : %s\n\t\t\t\t\t RIB : %s\n\t\t\t\t\t Informatio
                 }
                 FILE *temp = fopen("temp_carnet_cheque.txt", "w");
                 if (!temp) {
-                printf("Erreur : Impossible de créer un fichier temporaire\n");
+                printf("Erreur : Impossible de crÃ©er un fichier temporaire\n");
                 fclose(file);
                 return;
                     }
@@ -2876,16 +2876,16 @@ printf("\n\t\t\t\t\t ID demande : %s\n\t\t\t\t\t RIB : %s\n\t\t\t\t\t Informatio
                             afficherCentre("Demande approuvee.\n");
                               FILE *boite = fopen(boite_messagefile, "a");
         if (boite != NULL) {
-            // Récupérer la date et l'heure actuelles
+            // RÃ©cupÃ©rer la date et l'heure actuelles
             time_t t = time(NULL);
             struct tm tm = *localtime(&t);
 
-            // Écrire les informations dans l'boite
+            // Ã‰crire les informations dans l'boite
 fprintf(boite, "RIB : %s\n", rib); // Ligne 1 : RIB
             fprintf(boite, "Date : %02d/%02d/%04d %02d:%02d:%02d\n",
                     tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900,
                     tm.tm_hour, tm.tm_min, tm.tm_sec); // Ligne 2 : Date
-            fprintf(boite, "votre demande de carnet de cheque a ete valider , vouillez visiter notre agence pour le recevoir\n\n"); // Ligne 3 : Message personnalisé
+            fprintf(boite, "votre demande de carnet de cheque a ete valider , vouillez visiter notre agence pour le recevoir\n\n"); // Ligne 3 : Message personnalisÃ©
 
             fclose(boite);
         } else {
@@ -2895,16 +2895,16 @@ fprintf(boite, "RIB : %s\n", rib); // Ligne 1 : RIB
                             afficherCentre("Demande rejetee.\n");
                               FILE *boite = fopen(boite_messagefile, "a");
         if (boite != NULL) {
-            // Récupérer la date et l'heure actuelles
+            // RÃ©cupÃ©rer la date et l'heure actuelles
             time_t t = time(NULL);
             struct tm tm = *localtime(&t);
 
-            // Écrire les informations dans l'boite
+            // Ã‰crire les informations dans l'boite
                             fprintf(boite, "RIB : %s\n", rib); // Ligne 1 : RIB
             fprintf(boite, "Date : %02d/%02d/%04d %02d:%02d:%02d\n",
                     tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900,
                     tm.tm_hour, tm.tm_min, tm.tm_sec); // Ligne 2 : Date
-            fprintf(boite, "votre demande de carnet de cheque a ete rejete\n\n"); // Ligne 3 : Message personnalisé
+            fprintf(boite, "votre demande de carnet de cheque a ete rejete\n\n"); // Ligne 3 : Message personnalisÃ©
 
             fclose(boite);
         } else {
@@ -2914,16 +2914,16 @@ fprintf(boite, "RIB : %s\n", rib); // Ligne 1 : RIB
                         else {
                                   FILE *boite = fopen(boite_messagefile, "a");
         if (boite != NULL) {
-            // Récupérer la date et l'heure actuelles
+            // RÃ©cupÃ©rer la date et l'heure actuelles
             time_t t = time(NULL);
             struct tm tm = *localtime(&t);
 
-            // Écrire les informations dans l'boite
+            // Ã‰crire les informations dans l'boite
             fprintf(boite, "RIB : %s\n", rib); // Ligne 1 : RIB
             fprintf(boite, "Date : %02d/%02d/%04d %02d:%02d:%02d\n",
                     tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900,
                     tm.tm_hour, tm.tm_min, tm.tm_sec); // Ligne 2 : Date
-            fprintf(boite, "votre demande de carnet de cheque est en cours de traitement\n\n"); // Ligne 3 : Message personnalisé
+            fprintf(boite, "votre demande de carnet de cheque est en cours de traitement\n\n"); // Ligne 3 : Message personnalisÃ©
 
             fclose(boite);
         } else {
@@ -2949,7 +2949,7 @@ fprintf(boite, "RIB : %s\n", rib); // Ligne 1 : RIB
                 break;
             }
 
-                case 5: {// Gestion des demandes de récupération de mot de passe
+                case 5: {// Gestion des demandes de rÃ©cupÃ©ration de mot de passe
 
                 FILE *file = fopen(demande_recuperationfile, "r");
                 if (!file) {
@@ -2958,7 +2958,7 @@ fprintf(boite, "RIB : %s\n", rib); // Ligne 1 : RIB
                 }
                 FILE *temp = fopen("temp_recuperation.txt", "w");
                 if (!temp) {
-                printf("Erreur : Impossible de créer un fichier temporaire\n");
+                printf("Erreur : Impossible de crÃ©er un fichier temporaire\n");
                 fclose(file);
                 return;
                     }
@@ -2989,7 +2989,7 @@ fprintf(boite, "RIB : %s\n", rib); // Ligne 1 : RIB
             scanf("%d", &action);
 
             if (action == 1) {
-                printf("\t\t\t\t\t Demande approuvee, recupération du mot de passe en cours.\n");
+                printf("\t\t\t\t\t Demande approuvee, recupÃ©ration du mot de passe en cours.\n");
 
                 // Parcourir le fichier LoginClientfile pour trouver le mot de passe
                 FILE *loginFile = fopen(LoginClientfile, "r");
@@ -3016,14 +3016,14 @@ fprintf(boite, "RIB : %s\n", rib); // Ligne 1 : RIB
             } else if (action == 2) {
                 afficherCentre("Demande rejetee.\n");
             } else {
-                // Réécrire la demande ignorée dans le fichier temporaire
+                // RÃ©Ã©crire la demande ignorÃ©e dans le fichier temporaire
                 fprintf(temp, "ID demande : %s\n", id);
                 fprintf(temp, "RIB : %s\n", rib);
                 fprintf(temp, "Email : %s\n", email);
                 fprintf(temp, "---\n");
             }
 
-            // Réinitialiser pour la prochaine demande
+            // RÃ©initialiser pour la prochaine demande
             demande_complete = false;
         }
     }
@@ -3078,7 +3078,7 @@ void login_admin() {
          printf("\t\t\t\t\t|\t      ");
         read_password(password_input );//fonction pour masquer le mot de passe
         printf("\t\t\t\t\t+----------------------------------+\n");
-        Sleep(300); // Attendre pour afficher la connexion réussie
+        Sleep(300); // Attendre pour afficher la connexion rÃ©ussie
         clearConsole();
         // Ouvrir le fichier admins.txt en mode lecture
        FILE* file = fopen("loginAdmin.txt", "r");
@@ -3122,7 +3122,7 @@ void login_admin() {
                 afficherInfoCompte(comptes, nb_comptes);
                 afficherCentre("appuyer sur entree pour revenir au menu:\n");
                  getchar();//consomme l'entree \n apres  scanf("%d",&choix);
-                 getchar();//Attend une entrée utilisateur
+                 getchar();//Attend une entrÃ©e utilisateur
                  clearConsole();
                  changerCouleur(BLACK);
                 break;
@@ -3131,7 +3131,7 @@ void login_admin() {
                 afficherTousComptes(comptes, nb_comptes);
                 afficherCentre("appuyer sur entree pour revenir au menu:\n");
                  getchar();//consomme l'entree \n apres  scanf("%d",&choix);
-                 getchar();//Attend une entrée utilisateur
+                 getchar();//Attend une entrÃ©e utilisateur
                  clearConsole();
                  changerCouleur(BLACK);
                 break;
@@ -3180,7 +3180,7 @@ void login_admin() {
         }
     } while (choix != 0);
 
-                    return; // Sortir après une connexion réussie
+                    return; // Sortir aprÃ¨s une connexion rÃ©ussie
                 }
             }
         }
@@ -3214,19 +3214,19 @@ void setConsoleColors(int textColor, int backgroundColor) {
     CONSOLE_SCREEN_BUFFER_INFO csbi;
     DWORD written;
 
-    // Récupérer les informations actuelles de la console
+    // RÃ©cupÃ©rer les informations actuelles de la console
     GetConsoleScreenBufferInfo(hConsole, &csbi);
 
     // Taille totale de la console
     DWORD consoleSize = csbi.dwSize.X * csbi.dwSize.Y;
 
-    // Coordonner le point de départ (haut à gauche)
+    // Coordonner le point de dÃ©part (haut Ã  gauche)
     COORD coordScreen = {0, 0};
 
-    // Définir les attributs de texte et fond
+    // DÃ©finir les attributs de texte et fond
     SetConsoleTextAttribute(hConsole, (backgroundColor << 4) | textColor);
 
-    // Remplir l'écran avec les nouveaux attributs
+    // Remplir l'Ã©cran avec les nouveaux attributs
     FillConsoleOutputAttribute(
         hConsole,
         (backgroundColor << 4) | textColor,
@@ -3235,10 +3235,10 @@ void setConsoleColors(int textColor, int backgroundColor) {
         &written
     );
 
-    // Remplir l'écran avec des espaces pour effacer l'ancien contenu
+    // Remplir l'Ã©cran avec des espaces pour effacer l'ancien contenu
     FillConsoleOutputCharacter(hConsole, ' ', consoleSize, coordScreen, &written);
 
-    // Repositionner le curseur en haut à gauche
+    // Repositionner le curseur en haut Ã  gauche
     SetConsoleCursorPosition(hConsole, coordScreen);
 }
 
@@ -3255,7 +3255,7 @@ void premier_affichageA() {
     printf("\t\t\t      *        \n");
     printf("\t\t\t  *****        \n");
      // Attendre avant de nettoyer la console
-    system("cls");} // Nettoyer l'écran (sur Windows)
+    system("cls");} // Nettoyer l'Ã©cran (sur Windows)
 void premier_affichageB() {
     changerCouleur(MAGENTA);
     printf("\n\n\n\n\n\n\n");
@@ -3266,7 +3266,7 @@ void premier_affichageB() {
     printf("\t\t\t  ***** **   **       \n");
     changerCouleur(BLACK);
      // Attendre avant de nettoyer la console
-    system("cls");}// Nettoyer l'écran (sur Windows)
+    system("cls");}// Nettoyer l'Ã©cran (sur Windows)
 void premier_affichageC() {
     changerCouleur(MAGENTA);
     printf("\n\n\n\n\n\n\n");
@@ -3277,7 +3277,7 @@ void premier_affichageC() {
     printf("\t\t\t  ***** **   **  ***  **        \n");
     changerCouleur(BLACK);
     sleep(1); // Attendre avant de nettoyer la console
-    system("cls"); }// Nettoyer l'écran (sur Windows)
+    system("cls"); }// Nettoyer l'Ã©cran (sur Windows)
 void premier_affichageD() {
     changerCouleur(MAGENTA);
     printf("\n\n\n\n\n\n\n");
@@ -3288,7 +3288,7 @@ void premier_affichageD() {
     printf("\t\t\t  ***** **   **  ***  **   *****          \n");
     changerCouleur(BLACK);
     // Attendre avant de nettoyer la console
-    system("cls"); }// Nettoyer l'écran (sur Windows)
+    system("cls"); }// Nettoyer l'Ã©cran (sur Windows)
 void premier_affichageE() {
     changerCouleur(MAGENTA);
     printf("\n\n\n\n\n\n\n");
@@ -3299,7 +3299,7 @@ void premier_affichageE() {
     printf("\t\t\t  ***** **   **  ***  **   *****  **   **         \n");
     changerCouleur(BLACK);
     // Attendre avant de nettoyer la console
-    system("cls"); // Nettoyer l'écran (sur Windows)
+    system("cls"); // Nettoyer l'Ã©cran (sur Windows)
 }
 void premier_affichageF() {
     changerCouleur(MAGENTA);
@@ -3311,7 +3311,7 @@ void premier_affichageF() {
     printf("\t\t\t  ***** **   **  ***  **   *****  **   **  ***  **         \n");
     changerCouleur(BLACK);
     // Attendre avant de nettoyer la console
-    system("cls");} // Nettoyer l'écran (sur Windows)
+    system("cls");} // Nettoyer l'Ã©cran (sur Windows)
     void premier_affichageG() {
     printf("\n\n\n\n\n\n\n");
     printf("\t\t\t  *****    *     *****     *****     *     ***  ***  ***   **     \n");
@@ -3320,7 +3320,7 @@ void premier_affichageF() {
     printf("\t\t\t      *  *   *   *    *    *    *  *   *    *  * *    *   *       \n");
     printf("\t\t\t  ***** **   **  ***  **   *****  **   **  ***  **   **    **     \n");
     sleep(1); // Attendre avant de nettoyer la console
-    system("cls"); // Nettoyer l'écran (sur Windows)
+    system("cls"); // Nettoyer l'Ã©cran (sur Windows)
 }
 
 void afficherCentre(const char *texte) {
@@ -3342,7 +3342,7 @@ void afficherCentre(const char *texte) {
 int obtenirLargeurConsole() {
 #ifdef _WIN32
     CONSOLE_SCREEN_BUFFER_INFO csbi;
-    int largeur = 80; // Valeur par défaut
+    int largeur = 80; // Valeur par dÃ©faut
     if (GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi)) {
         largeur = csbi.srWindow.Right - csbi.srWindow.Left + 1;
     }
@@ -3352,19 +3352,19 @@ int obtenirLargeurConsole() {
     if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &w) == 0) {
         return w.ws_col;
     }
-    return 80; // Valeur par défaut si la largeur n'est pas accessible
+    return 80; // Valeur par dÃ©faut si la largeur n'est pas accessible
 #endif
 }
-// Fonction pour afficher un texte formaté au centre
+// Fonction pour afficher un texte formatÃ© au centre
 void afficherCentreSF(const char *format, ...) {
-    // Buffer pour contenir le texte formaté
+    // Buffer pour contenir le texte formatÃ©
     char texte[1024];
 
     // Initialiser les arguments variables
     va_list args;
     va_start(args, format);
 
-    // Créer le texte formaté
+    // CrÃ©er le texte formatÃ©
     vsnprintf(texte, sizeof(texte), format, args);
 
     // Terminer les arguments variables
@@ -3392,7 +3392,7 @@ void afficherCentreSF(const char *format, ...) {
 // Fonction pour obtenir la largeur de la console
 int obtenirlargeurConsole() {
     CONSOLE_SCREEN_BUFFER_INFO csbi;
-    int largeur = 80; // Valeur par défaut
+    int largeur = 80; // Valeur par dÃ©faut
     if (GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi)) {
         largeur = csbi.srWindow.Right - csbi.srWindow.Left + 1;
     }
@@ -3408,7 +3408,7 @@ void printGreenOnWhite(const char *text) {
     GetConsoleScreenBufferInfo(hConsole, &csbi);
     WORD originalAttributes = csbi.wAttributes;
 
-    // Définir texte vert (2) sur fond blanc (15)
+    // DÃ©finir texte vert (2) sur fond blanc (15)
     SetConsoleTextAttribute(hConsole, (15 << 4) | 2); // 15 = blanc, 2 = vert
 
     // Afficher le texte
@@ -3417,7 +3417,7 @@ void printGreenOnWhite(const char *text) {
     // Restaurer les couleurs originales
     SetConsoleTextAttribute(hConsole, originalAttributes);
 }
-// Fonction pour afficher un texte formaté en vert sur fond blanc
+// Fonction pour afficher un texte formatÃ© en vert sur fond blanc
 void printFormattedGreenOnWhite(const char *format, ...) {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -3426,13 +3426,13 @@ void printFormattedGreenOnWhite(const char *format, ...) {
     GetConsoleScreenBufferInfo(hConsole, &csbi);
     WORD originalAttributes = csbi.wAttributes;
 
-    // Définir texte vert (2) sur fond blanc (15)
+    // DÃ©finir texte vert (2) sur fond blanc (15)
     SetConsoleTextAttribute(hConsole, (15 << 4) | 2); // 15 = blanc, 2 = vert
 
-    // Préparer le texte formaté
+    // PrÃ©parer le texte formatÃ©
     va_list args;
     va_start(args, format);
-    vprintf(format, args); // Affiche le texte formaté
+    vprintf(format, args); // Affiche le texte formatÃ©
     va_end(args);
 
     // Restaurer les couleurs originales
@@ -3447,7 +3447,7 @@ void printRedOnWhite(const char *text) {
     GetConsoleScreenBufferInfo(hConsole, &csbi);
     WORD originalAttributes = csbi.wAttributes;
 
-    // Définir texte rouge (4) sur fond blanc (15)
+    // DÃ©finir texte rouge (4) sur fond blanc (15)
     SetConsoleTextAttribute(hConsole, (15 << 4) | 4); // 15 = blanc (fond), 4 = rouge (texte)
 
     // Afficher le texte
@@ -3456,7 +3456,7 @@ void printRedOnWhite(const char *text) {
     // Restaurer les couleurs originales
     SetConsoleTextAttribute(hConsole, originalAttributes);
 }
-// Fonction pour afficher un texte formaté en rouge sur fond blanc
+// Fonction pour afficher un texte formatÃ© en rouge sur fond blanc
 void printFormattedRedOnWhite(const char *format, ...) {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -3465,13 +3465,13 @@ void printFormattedRedOnWhite(const char *format, ...) {
     GetConsoleScreenBufferInfo(hConsole, &csbi);
     WORD originalAttributes = csbi.wAttributes;
 
-    // Définir texte rouge (4) sur fond blanc (15)
+    // DÃ©finir texte rouge (4) sur fond blanc (15)
     SetConsoleTextAttribute(hConsole, (15 << 4) | 4); // 15 = blanc, 4 = rouge
 
-    // Préparer le texte formaté
+    // PrÃ©parer le texte formatÃ©
     va_list args;
     va_start(args, format);
-    vprintf(format, args); // Affiche le texte formaté
+    vprintf(format, args); // Affiche le texte formatÃ©
     va_end(args);
 
     // Restaurer les couleurs originales
@@ -3481,7 +3481,7 @@ void printFormattedRedOnWhite(const char *format, ...) {
 
 // Fonction principale de gestion
 // essayer de visiter l'espace admin en saisissant RACHIDA pour non d'utilisateur et 4444 pour mot de passe
-// essayer de visiter l'espace admin en saisissant 12345678  pour le RIB et 0000 pour mot de passe
+// essayer de visiter l'espace client en saisissant 12345678  pour le RIB et 0000 pour mot de passe
 int main() {
     // Fond blanc (15) et texte noir (0)
     setConsoleColors(0, 15);
